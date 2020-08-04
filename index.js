@@ -89,13 +89,16 @@ server.put("/api/users/:id", (req, res) => {
 server.delete("/api/users/:id", (req, res) => {
   const id = req.params.id;
 
-  if (id) {
-    users = users.filter(u => u.id != Number(id));
-    res.status(200).json(users);
-  } else {
+  // users = users.filter(u => u.id !== id);
+  // res.status(200).json(users);
+
+  if (id !== id) {
     res.status(404).json({
-      errorMessage: "Error (404): User ID does not exist.",
+      errorMessage: `ERROR 404: NO user available under specific ID: ${id}`,
     });
+  } else {
+    users = users.filter(u => u.id !== id);
+    res.status(200).json(users);
   }
 
   // const name = req.params.name;
